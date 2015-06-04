@@ -10,15 +10,17 @@ Prerequisites:
 
 3. Build tools and pip
 
+    ```bash
     $ sudo apt-get install gcc make libffi-dev python-dev python-pip git
-
+    ```
 
 Installation:
 
 1. Install coinop from PyPI:
 
+    ```bash
     $ sudo pip install gem-migrator
-
+    ```
 
 Usage:
 
@@ -26,10 +28,14 @@ Usage:
 
 2. Run the utility (replacing the uppercase variables with their values from the console)
 
+    ```bash
     $ gem-migrator -a API_TOKEN -d ADMIN_TOKEN -t TOTP_SECRET
+    ```
 
 3. Enter your passphrase for each wallet when prompted.
 
 4. Uninstall gem-migrator. You will probably never need it again.
 
+    ```bash
     $ sudo pip uninstall gem-migrator
+    ```
