@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from future.utils import iteritems
 from round import client
 from gem_migrator.nacl_passphrasebox import NaclPassphraseBox
 from coinop.passphrasebox import PassphraseBox
@@ -19,21 +20,23 @@ parser.add_argument('totp_secret', help="Your totp_secret")
 if __name__ == '__main__':
     args = parser.parse_args()
 
-    cli = client()
+    cli = client('http://localhost:8999')
 
     app = cli.authenticate_application(api_token=args.api_token,
                                        admin_token=args.admin_token)
     app.set_totp(args.totp_secret)
 
-    for w in app.wallets:
+    for w in app.wallets.values():
+        print(type(w))
+        print(w)
         if w.primary_private_seed['iv']:
             continue
-        print("Enter your passphrase for {}: ".format(w.name))
+        print("Enter your passphrase for {}".format(w.name))
         try:
-            passphrase = getpass()
+            passphrase = getpass("passphrase: ")
             seed = NaclPassphraseBox.decrypt(passphrase, w.primary_private_seed)
             encrypted_seed = PassphraseBox.encrypt(passphrase, seed)
-            w.with_mfa(app.get_mfa()).update(
+            w.with_mfa(app.get_mfa()).resource.update(
                 {'name': w.name,
                  'primary_private_seed': encrypted_seed})
             print("{} updated successfully!".format(w.name))
@@ -43,4 +46,4 @@ if __name__ == '__main__':
                   "try running this utility again.")
             break
 
-    print "Done!"
+    print("Done!")
