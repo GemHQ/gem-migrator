@@ -1,8 +1,10 @@
-gem-migrator: A small utility for migrating Gem application wallets.
+## gem-migrator
+
+A small utility for migrating Gem application wallets.
 
 This tool will re-encrypt your [Gem](https://developers.gem.co) Application wallets using an updating encryption scheme (chosen to eliminate the not-very-portable libsodium).
 
-Prerequisites:
+### Prerequisites
 
 1. A *NIX environment (this migration is in part intended to make the [Gem client library](https://github.com/GemHQ/round-py) easy to install on Windows)
 
@@ -14,9 +16,9 @@ Prerequisites:
     $ sudo apt-get install gcc make libffi-dev python-dev python-pip git
     ```
 
-Installation:
+### Installation
 
-1. Install coinop from PyPI:
+1. Install from PyPI:
 
     ```bash
     $ sudo pip install gem-migrator
@@ -29,7 +31,7 @@ Usage:
 2. Run the utility (replacing the uppercase variables with their values from the console)
 
     ```bash
-    $ gem-migrator -a API_TOKEN -d ADMIN_TOKEN -t TOTP_SECRET
+    $ gem-migrator API_TOKEN ADMIN_TOKEN TOTP_SECRET
     ```
 
 3. Enter your passphrase for each wallet when prompted.

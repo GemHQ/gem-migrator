@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from setuptools import setup, find_packages
 
-setup(name='gem-mirator',
+setup(name='gem-migrator',
       version = '0.1.0',
       description = 'utility for migrating Gem application wallets',
       url = 'http://github.com/GemHQ/gem-migrator',
@@ -15,5 +15,5 @@ setup(name='gem-mirator',
 #         'round==0.8.1',
       ],
       tests_require = [ 'tox' ],
-      scripts=['migrate.py'],
+      scripts=['gem-migrator'],
       zip_safe=False)
