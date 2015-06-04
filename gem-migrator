@@ -20,7 +20,7 @@ parser.add_argument('totp_secret', help="Your totp_secret")
 if __name__ == '__main__':
     args = parser.parse_args()
 
-    cli = client('http://localhost:8999')
+    cli = client()
 
     app = cli.authenticate_application(api_token=args.api_token,
                                        admin_token=args.admin_token)
