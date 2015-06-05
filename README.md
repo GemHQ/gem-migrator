@@ -24,7 +24,7 @@ This tool will re-encrypt your [Gem](https://developers.gem.co) Application wall
     $ sudo pip install gem-migrator
     ```
 
-Usage:
+### Usage
 
 1. Log into the [Gem Developer Console](https://developers.gem.co). You'll need to copy tokens for use in the next step.
 
