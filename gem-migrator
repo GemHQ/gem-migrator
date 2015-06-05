@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+ #! /usr/bin/env python
 
 from future.utils import iteritems
 from round import client
@@ -26,8 +26,9 @@ if __name__ == '__main__':
                                        admin_token=args.admin_token)
     app.set_totp(args.totp_secret)
 
+    updated = 0
+    errored = 0
     for w in app.wallets.values():
-        print(type(w))
         print(w)
         if w.primary_private_seed['iv']:
             continue
@@ -39,11 +40,16 @@ if __name__ == '__main__':
             w.with_mfa(app.get_mfa()).resource.update(
                 {'name': w.name,
                  'primary_private_seed': encrypted_seed})
+            updated += 1
             print("{} updated successfully!".format(w.name))
         except Exception as e:
             print(e.message)
             print("Looks like something went wrong. Check your passphrase and "
                   "try running this utility again.")
-            break
+            errored += 1
+            continue
 
-    print("Done!")
+    print("""Done!
+{} wallets updated successfully
+{} wallets failed to update
+""".format(updated, errored))
