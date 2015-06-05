@@ -1,11 +1,11 @@
- #! /usr/bin/env python
+#!/usr/bin/env python
 
 from future.utils import iteritems
 from round import client
 from gem_migrator.nacl_passphrasebox import NaclPassphraseBox
 from coinop.passphrasebox import PassphraseBox
 from sys import argv
-from argparse import ArgumentParser
+from argparse import ArgumentParser, SUPPRESS
 from getpass import getpass
 
 
@@ -13,6 +13,7 @@ parser = ArgumentParser(
     description=("A simple utility for migrating Gem application wallets. You "
                  "can find the required parameters in the Gem web console at: "
                  "https://developers.gem.co"))
+parser.add_argument('-u', 'url', help=SUPPRESS)
 parser.add_argument('api_token', help="Your api_token")
 parser.add_argument('admin_token', help="Your admin_token")
 parser.add_argument('totp_secret', help="Your totp_secret")
@@ -20,7 +21,8 @@ parser.add_argument('totp_secret', help="Your totp_secret")
 if __name__ == '__main__':
     args = parser.parse_args()
 
-    cli = client()
+    cli = client(args.url) if args.url
+    cli ||= client()
 
     app = cli.authenticate_application(api_token=args.api_token,
                                        admin_token=args.admin_token)
