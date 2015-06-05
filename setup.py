@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from setuptools import setup, find_packages
 
 setup(name='gem-migrator',
-      version = '0.1.2',
+      version = '0.1.3',
       description = 'utility for migrating Gem application wallets',
       url = 'http://github.com/GemHQ/gem-migrator',
       author = 'Matt Smith',

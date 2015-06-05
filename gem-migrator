@@ -13,7 +13,7 @@ parser = ArgumentParser(
     description=("A simple utility for migrating Gem application wallets. You "
                  "can find the required parameters in the Gem web console at: "
                  "https://developers.gem.co"))
-parser.add_argument('-u', 'url', help=SUPPRESS)
+parser.add_argument('-u', '--url', help=SUPPRESS)
 parser.add_argument('api_token', help="Your api_token")
 parser.add_argument('admin_token', help="Your admin_token")
 parser.add_argument('totp_secret', help="Your totp_secret")
