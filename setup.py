@@ -11,9 +11,8 @@ setup(name='gem-migrator',
       packages = find_packages(),
       install_requires = [
           'PyNaCl==0.3.0',
-          'round',
-#         'round==0.8.1',
+          'round==0.9.0'
       ],
       tests_require = [ 'tox' ],
-      scripts=['gem-migrator'],
+      scripts=[ 'gem-migrator' ],
       zip_safe=False)
