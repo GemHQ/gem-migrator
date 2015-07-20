@@ -27,11 +27,12 @@ if __name__ == '__main__':
                                        admin_token=args.admin_token)
     app.set_totp(args.totp_secret)
 
-    updated = 0
-    errored = 0
+    already_updated = []
+    updated = []
+    errored = {}
     for w in app.wallets.values():
-        print(w)
         if w.primary_private_seed['iv']:
+            already_updated.append(w)
             continue
         print("Enter your passphrase for {}".format(w.name))
         try:
@@ -41,16 +42,30 @@ if __name__ == '__main__':
             w.with_mfa(app.get_mfa()).resource.update(
                 {'name': w.name,
                  'primary_private_seed': encrypted_seed})
-            updated += 1
+            updated.append(w)
             print("{} updated successfully!".format(w.name))
         except Exception as e:
-            print(e.message)
-            print("Looks like something went wrong. Check your passphrase and "
-                  "try running this utility again.")
-            errored += 1
+            errored[w.name] = e
             continue
 
-    print("""Done!
+    print("""
+Done!
+{} wallets were already updated
+""".format(len(already_updated)))
+    for w in already_updated:
+        print("- {}\n".format(w.name))
+
+    print("""
 {} wallets updated successfully
+""".format(len(updated)))
+    for w in updated:
+        print("- {}\n".format(w.name))
+
+    print("""
 {} wallets failed to update
-""".format(updated, errored))
+""".format(len(errored)))
+
+    for wname, e in iteritems(errored):
+        print("""
+- {}
+  {}""".format(wname, e.message))
